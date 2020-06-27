@@ -16,7 +16,7 @@ class CategoriesController {
         const category = {
             name,
             description,
-            image,
+            image: request.file.filename,
             parent_id
         }
 
