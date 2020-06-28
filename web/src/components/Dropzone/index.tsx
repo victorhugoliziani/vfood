@@ -1,24 +1,37 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 
 import './styles.css';
 
-const Dropzone = () => {
+interface Props {
+    onFileUploaded: (file: File) => void;
+}
+
+const Dropzone: React.FC<Props> = ({onFileUploaded}) => {
+
+    const [selectedFileUrl, setSelectedFileUrl] = useState('');
     
     const onDrop = useCallback(acceptedFiles => {
-        // Do something with the files
+        const file = acceptedFiles[0];
+        const fileURL = URL.createObjectURL(file);
+        setSelectedFileUrl(fileURL);
+        onFileUploaded(file);
     }, []);
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+        onDrop,
+        accept: 'image/*'
+    });
 
     return (
         <div className="dropzone" {...getRootProps()}>
              <input {...getInputProps()} accept="image/*" />
             {
-                isDragActive ?
-                <p>Drop the files here ...</p> :
-                <p>Drag 'n' drop some files here, or click to select files</p>
+               selectedFileUrl 
+                    ? <img src={selectedFileUrl} alt="Thumbnail" />
+                    : (<p>Imagem da categoria</p>)
             }
-            </div>
+        </div>
     );
 }
 
