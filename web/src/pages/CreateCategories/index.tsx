@@ -1,6 +1,8 @@
 import React, {useState, ChangeEvent, FormEvent} from 'react';
+import axios from 'axios';
 import Header from '../../components/Header';
 import Dropzone from '../../components/Dropzone';
+import api from '../../services/api';
 
 import './styles.css';
 
@@ -30,6 +32,18 @@ const CreateCategories = () => {
         event.preventDefault();
         const {name, description} = formData;
         const {parent_id} = selectedParent;
+
+        const data =new FormData();
+        data.append(`name`, name);
+        data.append(`description`, description);
+        data.append(`parent_id`, parent_id);
+
+        if(selectedFile) {
+            data.append(`image`, selectedFile);
+        }
+
+        api.post('categories', data);
+        alert("Categoria criada com sucesso");
     }
 
     return (
