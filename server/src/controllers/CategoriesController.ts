@@ -18,6 +18,16 @@ class CategoriesController {
         return response.json(serializeCategories);
         
     }
+
+    async show(request: Request, response: Response) {
+        const {id} = request.params;
+        const category = await knex('categories').where('id', id).first();
+        const serializeCategory = {
+            ...category,
+            url_image: `http://localhost:3333/uploads/${category.image}`
+        }
+        return response.json(serializeCategory);
+    }
     
     async create(request: Request, response: Response) {
         const {

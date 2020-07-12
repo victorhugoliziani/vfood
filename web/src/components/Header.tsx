@@ -11,6 +11,10 @@ const Header = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
+                        <h1 className="logo">
+                            <Link to="/" className="fas fa-hamburger icon-logo"></Link>
+                            <span>VFOOD</span>
+                        </h1>
                         <nav className="menu">
                             <ul>
                                 <li>

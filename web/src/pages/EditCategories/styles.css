@@ -1,0 +1,62 @@
+.card h1 {
+    width: 100%;
+    font-size: 20px;
+    height: 30px;
+    background-color: #fff;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.card .card-header {
+    font-family: 'Rubik';
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.card .card-body {
+    margin-top: 20px;
+}
+
+.card .card-body form {
+    float: left;
+    width: 100%;
+}
+
+.card .card-body form label {
+    float: left;
+    width: 100%;
+    font-family: Rubik;
+    font-size: 16px;
+    color: #333;
+}
+
+.card .card-body form input, .card .card-body form select {
+    float: left;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 0;
+    border: 1px solid #ccc;
+    border-bottom: 2px solid #c1bcbc;
+    font-family: Rubik;
+    font-size: 14px;
+    color: #333;
+    padding-left: 10px;
+}
+
+.card .card-body form button {
+    float: left;
+    width: 100%;
+    height: 45px;
+    background-color: #fccc4c;
+    font-weight: bold;
+    font-family: Rubik;
+    text-transform: unset;
+    border: none;
+    border-bottom: 2px solid #c1bcbc;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}

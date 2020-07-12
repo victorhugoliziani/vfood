@@ -3,7 +3,7 @@ nav.menu {
     width: 100%;
     height: 60px;
     background-color: #fccc4c;
-    margin-top: 100px;
+    margin-top: 25px;
     border-radius: 10px;
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3);
 }
@@ -28,4 +28,24 @@ nav.menu ul li .link {
     font-size: 16px;
     font-weight: 600;
     color: #333;
+}
+
+.logo {
+    width: 100%;
+    text-align: center;
+}
+
+.logo .icon-logo {
+    width: 100%;
+    font-size: 100px;
+    color: #fccc4c;
+    text-decoration: none;
+}
+
+.logo span {
+    font-family: Rubik;
+    font-size: 45px;
+    color: 000;
+    font-weight: 600;
+    clear: both;
 }

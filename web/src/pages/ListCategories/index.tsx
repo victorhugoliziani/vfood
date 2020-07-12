@@ -46,12 +46,13 @@ const ListCategories = () => {
                                 <tbody id="dataCategories">
                                     {
                                         items.map(item => {
+                                            let url_edit = `/edit-categories/${item["id"]}`;
                                             return (<tr>
                                                 <td>{item["id"]}</td>
                                                 <td>{item["name"]}</td>
                                                 <td>{item["description"]}</td>
-                                                <td><Link to="/edit-categories"><FiEdit /></Link></td>
-                                                <td><Link to="/remove-categories"><FiTrash2 /></Link></td>
+                                                <td><Link to={url_edit}><FiEdit /></Link></td>
+                                                <td><Link to="/remove-categories/"><FiTrash2 /></Link></td>
                                             </tr>)
                                         })
                                     }
