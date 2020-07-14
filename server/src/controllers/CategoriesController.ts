@@ -55,6 +55,37 @@ class CategoriesController {
         });
     }
 
+    async update(request: Request, response: Response) {
+        const {
+            id,
+            name,
+            description,
+            image, 
+            parent_id
+        } = request.body;
+
+        const category = {
+            name,
+            description,
+            image: request.file.filename,
+            parent_id
+        }
+
+        const trx = await knex.transaction();
+
+        const updateCategory = await trx('categories')
+            .where('id', '=', id)
+            .update(category);
+
+        await trx.commit();
+
+        return response.json({
+            id,
+            ...category
+        });
+
+    }
+
 }
 
 export default CategoriesController;

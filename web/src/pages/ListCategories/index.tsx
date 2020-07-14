@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import Header from '../../components/Header';
 import {FiEdit, FiTrash2} from 'react-icons/fi';
 import {Link} from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 import api from '../../services/api';
 import './styles.css';
@@ -15,16 +16,22 @@ interface Items {
 const ListCategories = () => {
 
     const [items, setItems] = useState([]);
-
+    const [loading, setLoading] = useState();
+    
     useEffect(() => {
+        setLoading(true);
         api.get('categories').then(response => {
             let dataCategories = response.data;
             setItems(dataCategories);
+            setLoading(false);
         });
     }, []);
 
     return (
         <>
+            {
+                loading ? (<Loading text="Aguarde... Carregando categorias" />) : ''
+            }
             <Header />
             <div className="container">
                 <div className="row">

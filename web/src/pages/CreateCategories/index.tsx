@@ -15,14 +15,17 @@ const CreateCategories = () => {
         parent_id: ''
     });
     const [selectedParent, setSelectedParent] = useState({
-        id: '',
-        name: '',
         parent_id: ''
     });
 
+    const [parents, setParents] = useState([{
+        id: '',
+        name: ''
+    }])
+
     useEffect(() => {
         api.get('/categories').then(response => {
-            setSelectedParent(response.data);
+            setParents(response.data);
         });
     }, []);
 
@@ -79,6 +82,13 @@ const CreateCategories = () => {
                                             <label htmlFor="parent_id">Sub-categoria</label>
                                             <select name="parent_id" className="parent_id" id="parent_id" onChange={handleSelectChange}>
                                                 <option>Selecione uma opção</option>
+                                                {
+                                                    parents.map(parent => {
+                                                        return (
+                                                            <option value={parent.id}>{parent.name}</option>
+                                                        )
+                                                    })
+                                                }
                                             </select>
                                         </div>
                                         <div className="col-md-12">

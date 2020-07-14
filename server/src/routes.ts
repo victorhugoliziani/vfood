@@ -22,5 +22,6 @@ routes.post('/categories', upload.single('image'), celebrate({
 
 routes.get('/categories', categoriesController.index);
 routes.get('/categories/:id', categoriesController.show);
+routes.put('/categories', upload.single('image'), categoriesController.update);
 
 export default routes;
