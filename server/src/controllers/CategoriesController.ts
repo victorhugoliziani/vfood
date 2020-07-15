@@ -64,11 +64,20 @@ class CategoriesController {
             parent_id
         } = request.body;
 
-        const category = {
-            name,
-            description,
-            image: request.file.filename,
-            parent_id
+        let category = {};
+        if(request.file) {
+            category = {
+                name,
+                description,
+                image: request.file ? request.file.filename : '',
+                parent_id
+            }
+        } else {
+            category = {
+                name,
+                description,
+                parent_id
+            }
         }
 
         const trx = await knex.transaction();

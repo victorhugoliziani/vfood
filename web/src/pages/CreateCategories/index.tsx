@@ -51,7 +51,7 @@ const CreateCategories = () => {
 
         if(selectedFile) {
             data.append(`image`, selectedFile);
-        }
+        } 
 
         api.post('categories', data);
         alert("Categoria criada com sucesso");

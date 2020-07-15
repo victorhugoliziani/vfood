@@ -3,6 +3,8 @@ import axios from 'axios';
 import Header from '../../components/Header';
 import Dropzone from '../../components/Dropzone';
 import api from '../../services/api';
+import Loading from '../../components/Loading';
+import {useHistory, Link} from 'react-router-dom';
 
 import './styles.css';
 
@@ -30,11 +32,16 @@ const EditCategories = (props) => {
         parent_id: ''
     }]);
 
+    const [loading, setLoading] = useState(false);
+
+    const history = useHistory();
+
     useEffect(() => {
         api.get(`/categories/${props.match.params.id}`)
             .then(response => {
-                console.log(response.data);
+                let {parent_id} = response.data;
                 setFormData(response.data);
+                setSelectedParent({parent_id});
             });
     }, []);
 
@@ -48,9 +55,40 @@ const EditCategories = (props) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]:value});
     }
+
+    function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+        const {name, value} = event.target;
+        setSelectedParent({...selectedParent, [name]:value});
+    }
+
+    async function handleSubmit(event: FormEvent) {
+        event.preventDefault();
+        const {id, name, description} = formData;
+        let {parent_id} = selectedParent;
+        
+        const data =new FormData();
+        data.append(`id`, id);
+        data.append(`name`, name);
+        data.append(`description`, description);
+        data.append(`parent_id`, parent_id);
+
+        if(selectedFile) {
+            data.append(`image`, selectedFile);
+        }
+
+        setLoading(true);
+        await api.put('categories', data);
+
+        alert('Categoria atualizada com sucesso');
+        setLoading(false);
+        history.push('/list-categories');
+    }
     
     return (
         <>
+            {
+                loading ? (<Loading text="Aguarde.. Atualizando informações da categoria" />) : ''
+            }
             <Header />
             <div className="container">
                 <div className="row">
@@ -60,7 +98,7 @@ const EditCategories = (props) => {
                                 <h1>Editar Categoria</h1>
                             </div>
                             <div className="card-body">
-                                <form  className="formCategories" id="formCategories">
+                                <form  className="formCategories" id="formCategories" onSubmit={handleSubmit}>
                                     <input type="hidden" name="id" id="id" value={formData.id}/>
                                     <div className="row">
                                         <div className="col-md-12">
@@ -73,7 +111,7 @@ const EditCategories = (props) => {
                                         </div>
                                         <div className="col-md-12">
                                             <label htmlFor="parent_id">Sub-categoria</label>
-                                            <select name="parent_id" className="parent_id" id="parent_id">
+                                            <select name="parent_id" className="parent_id" id="parent_id" onChange={handleSelectChange}>
                                                 <option>Selecione uma opção</option>
                                                 {
                                                     parents.map(category => {
