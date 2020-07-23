@@ -10,18 +10,11 @@ const upload = multer(multerConfig);
 
 const categoriesController =new CategoriesController();
 
-routes.post('/categories', upload.single('image'), celebrate({
-   body: Joi.object().keys({
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        parent_id: Joi.string()
-   })
-}, {
-    abortEarly: false
-}), categoriesController.create);
+routes.post('/categories', upload.single('image'), categoriesController.create);
 
 routes.get('/categories', categoriesController.index);
 routes.get('/categories/:id', categoriesController.show);
 routes.put('/categories', upload.single('image'), categoriesController.update);
+routes.delete('/categories/:id',  categoriesController.destroy);
 
 export default routes;

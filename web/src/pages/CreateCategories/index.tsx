@@ -3,8 +3,12 @@ import axios from 'axios';
 import Header from '../../components/Header';
 import Dropzone from '../../components/Dropzone';
 import api from '../../services/api';
+import {useHistory} from 'react-router-dom';
+import {FiPlusCircle, FiSave} from 'react-icons/fi';
 
 import './styles.css';
+import Loading from '../../components/Loading';
+import Footer from '../../components/Footer';
 
 const CreateCategories = () => {
 
@@ -23,6 +27,10 @@ const CreateCategories = () => {
         name: ''
     }])
 
+    const [loading, setLoading] = useState(false);
+
+    const history = useHistory();
+
     useEffect(() => {
         api.get('/categories').then(response => {
             setParents(response.data);
@@ -39,34 +47,41 @@ const CreateCategories = () => {
         setSelectedParent({...selectedParent, [name]:value});
     }
 
-    function handleSubmit(event: FormEvent) {
+    async function handleSubmit(event: FormEvent) {
         event.preventDefault();
         const {name, description} = formData;
         const {parent_id} = selectedParent;
 
-        const data =new FormData();
-        data.append(`name`, name);
-        data.append(`description`, description);
-        data.append(`parent_id`, parent_id);
+        if(name != "" && description != "" && selectedFile) {
 
-        if(selectedFile) {
-            data.append(`image`, selectedFile);
-        } 
+            const data =new FormData();
+            data.append(`name`, name);
+            data.append(`description`, description);
+            data.append(`parent_id`, parent_id);
 
-        api.post('categories', data);
-        alert("Categoria criada com sucesso");
+            if(selectedFile) {
+                data.append(`image`, selectedFile);
+            }
+
+            setLoading(true);
+            await api.post('categories', data);
+            alert("Categoria criada com sucesso");
+            history.push('/list-categories')
+            setLoading(false);
+        } else {
+            alert("Campos obrigatório ficaram em branco.");
+        }
     }
 
     return (
         <>
+            {loading ? (<Loading text="Aguarde... Enviando informações" />) : ''}
             <Header />
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header">
-                                <h1>Cadastro de categorias</h1>
-                            </div>
+                            <h1 className="title"><FiPlusCircle className="icon" /> Cadastro de Categorias</h1>
                             <div className="card-body">
                                 <form onSubmit={handleSubmit} className="formCategories" id="formCategories">
                                     <div className="row">
@@ -95,7 +110,7 @@ const CreateCategories = () => {
                                             <Dropzone onFileUploaded={setSelectedFile} />
                                         </div>
                                         <div className="col-md-12">
-                                            <button type="submit" className="btnSave" name="btnSave" id="btnSave">Cadastrar</button>
+                                            <button type="submit" className="btnSave" name="btnSave" id="btnSave"><FiSave /> Cadastrar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -104,6 +119,7 @@ const CreateCategories = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

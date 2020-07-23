@@ -30,6 +30,7 @@ class CategoriesController {
     }
     
     async create(request: Request, response: Response) {
+
         const {
             name,
             description,
@@ -93,6 +94,25 @@ class CategoriesController {
             ...category
         });
 
+    }
+
+    async destroy(request: Request, response: Response) {
+        const {id} = request.params;
+
+        const trx = await knex.transaction();
+
+        const deleteCategory = await trx('categories')
+            .where('id', '=', id)
+            .del();
+
+        await trx.commit();
+
+        const deleteSuccess = deleteCategory == 1;
+
+        return response.json({
+            deleteSuccess,
+            id
+        });
     }
 
 }

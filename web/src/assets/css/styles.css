@@ -2,3 +2,89 @@ body {
     background-image: url('../images/concrete-wall.png');
     background-repeat: repeat;
 }
+
+.btnAdd {
+    float: right;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fccc4c;
+    color: #333;
+    font-family: Rubik;
+    font-weight: 600;
+    transition: 0.2s all;
+}
+
+.btnAdd:hover {
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    transition: 0.2s all;
+}
+
+.btnAdd:hover .icon {
+    color: #fff;
+    transition: 0.2s color;
+}
+
+.btnAdd .icon {
+    float: left;
+    margin-top: 2px;
+    margin-right: 5px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h1.title {
+    float: left;
+    width: 100% !important;
+    background-color: #f4f4f4 !important;
+    color: #333;
+    padding: 10px 0 10px 10px;
+    height: auto !important;
+}
+
+h1.title .icon {
+    float: left;
+    margin-right: 10px;
+    font-size: 27px;
+    color: #333;
+    background-color: #fccc4c;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
+}
+
+.btnRemove {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 5px 20px;
+}
+
+.footer-container {
+    float: left;
+    width: 100%;
+    background-color: #333;
+    height: 60px;
+}
+
+.footer-container .developer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-container .developer img {
+    width: 4%;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-top: 7px;
+    margin-right: 10px;
+}
+
+.footer-container .developer span {
+    color: #fff;
+}

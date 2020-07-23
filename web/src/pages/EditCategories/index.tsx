@@ -5,8 +5,10 @@ import Dropzone from '../../components/Dropzone';
 import api from '../../services/api';
 import Loading from '../../components/Loading';
 import {useHistory, Link} from 'react-router-dom';
+import {FiEdit, FiRefreshCcw} from 'react-icons/fi';
 
 import './styles.css';
+import Footer from '../../components/Footer';
 
 const EditCategories = (props) => {
 
@@ -94,9 +96,7 @@ const EditCategories = (props) => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card">
-                            <div className="card-header">
-                                <h1>Editar Categoria</h1>
-                            </div>
+                            <h1 className="title"><FiEdit className="icon" /> Editar Categorias</h1>
                             <div className="card-body">
                                 <form  className="formCategories" id="formCategories" onSubmit={handleSubmit}>
                                     <input type="hidden" name="id" id="id" value={formData.id}/>
@@ -141,7 +141,7 @@ const EditCategories = (props) => {
                                             <Dropzone onFileUploaded={setSelectedFile} />
                                         </div>
                                         <div className="col-md-12">
-                                            <button type="submit" className="btnSave" name="btnSave" id="btnSave">Atualizar</button>
+                                            <button type="submit" className="btnSave" name="btnSave" id="btnSave"><FiRefreshCcw /> Atualizar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -150,6 +150,7 @@ const EditCategories = (props) => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
