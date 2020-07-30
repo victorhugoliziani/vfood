@@ -11,7 +11,7 @@ class CategoriesController {
                 name: category.name,
                 description: category.description,
                 parent_id: category.parent_id,
-                image: `http://localhost:3333/uploads/${category.image}`
+                image: `http://192.168.0.20:3333/uploads/${category.image}`
             }
         });
 
@@ -24,7 +24,7 @@ class CategoriesController {
         const category = await knex('categories').where('id', id).first();
         const serializeCategory = {
             ...category,
-            url_image: `http://localhost:3333/uploads/${category.image}`
+            url_image: `http://192.168.0.20:3333/uploads/${category.image}`
         }
         return response.json(serializeCategory);
     }
